@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Http;
 using University.BL.Data;
 using University.BL.DTOs;
+using University.BL.Models;
 using University.BL.Repositories.Implements;
 using University.BL.Services.Implements;
 
@@ -54,5 +56,24 @@ namespace University.API.Controllers
         }
 
         //Importante: el consumo ya no es por nombre sino por tipo de metodo, lo consumimos por parametro
+        [HttpPost]
+        public async Task<IHttpActionResult> Post(CourseDTO courseDTO)
+        {
+            //chequeo si los datos del modelo son validos. Si el modelo no es valido
+            if (!ModelState.IsValid)
+                //retorna error 400 con los datos del modelo
+                return BadRequest(ModelState);
+
+
+            //control k s subrayando la linea de codigo para hacer un try catch
+            try
+            {
+                var course = mapper.Map<Course>(courseDTO); //hacermos la conversion de un DTO a un curso
+                course = await courseService.Insert(course); //luego hacemos el respectivo insert a traves del servicio y el repositorio
+                return Ok(course);
+            }
+            catch (Exception ex) { return InternalServerError(ex); }
+
+        }
     }
 }
