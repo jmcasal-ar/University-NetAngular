@@ -8,7 +8,7 @@ using University.BL.Models;
 
 namespace University.BL.Repositories.Implements
 {
-    public class CourseRepository : GenericRepository<Course>
+    public class CourseRepository : GenericRepository<Course>, ICourseRepository
     {
         //hay que poner que en el constructor debe recibir el contexto de datos 
         //en base le esta diciendo que como estamos heredando, estamos diciendo que la clase padre le va a pasar el contexto y la base de datos

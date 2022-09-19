@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace University.BL.Models
 {
-    [Table("Course", Schema = "dbo")]
+    [Table("Student", Schema = "dbo")]
     public class Student
     {
         [Key]
